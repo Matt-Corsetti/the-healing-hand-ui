@@ -6,6 +6,7 @@ import Home from "./components/HomePage";
 import Products from "./components/ProductsPage";
 import AboutPage from "./components/AboutPage";
 import ServicesPage from "./components/ServicesPage";
+import NewAccountPage from "./components/NewAccount";
 
 import "./App.css";
 
@@ -20,6 +21,7 @@ function App() {
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/services" component={ServicesPage} />
             <Route exact path="/products" component={Products} />
+            <Route exact path="/new-account" component={NewAccountPage} />
           </Switch>
         </div>
       </React.Fragment>

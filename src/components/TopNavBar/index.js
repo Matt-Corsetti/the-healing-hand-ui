@@ -95,9 +95,24 @@ function TopNavBar() {
                   </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                  <a href="/reset-password">
-                    <p>Forgot Password?</p>
-                  </a>
+                  <NavItem
+                    onClick={handleClose}
+                    eventkey={7}
+                    href="/reset-password"
+                  >
+                    <Nav.Link as={Link} to="/reset-password">
+                      Forgot Password?
+                    </Nav.Link>
+                  </NavItem>
+                  <NavItem
+                    onClick={handleClose}
+                    eventkey={8}
+                    href="/new-account"
+                  >
+                    <Nav.Link as={Link} to="/new-account">
+                      New to The Healing Hand?
+                    </Nav.Link>
+                  </NavItem>
                 </Modal.Footer>
               </Modal>
             </div>
