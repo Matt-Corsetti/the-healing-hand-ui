@@ -8,6 +8,7 @@ import AboutPage from "./components/AboutPage";
 import ServicesPage from "./components/ServicesPage";
 import NewAccountPage from "./components/NewAccount";
 import AdminPage from "./components/Admin";
+import AppointmentsPage from "./components/Appointments";
 
 import "./App.css";
 
@@ -24,6 +25,7 @@ function App() {
             <Route exact path="/products" component={Products} />
             <Route exact path="/new-account" component={NewAccountPage} />
             <Route exact path="/admin" component={AdminPage} />
+            <Route exact path="/appointments" component={AppointmentsPage} />
           </Switch>
         </div>
       </React.Fragment>

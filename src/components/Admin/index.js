@@ -4,7 +4,7 @@ import { gql } from "apollo-boost";
 
 import { Table } from "react-bootstrap";
 
-const GET_USERS = gql`
+const QUERIES = gql`
   {
     getUsers {
       id
@@ -12,11 +12,18 @@ const GET_USERS = gql`
       lastName
       email
     }
+    getAppointments {
+      id
+      userEmail
+      appointmentDate
+      appointmentTime
+      appointmentType
+    }
   }
 `;
 
 function AdminPage() {
-  const { loading, data } = useQuery(GET_USERS);
+  const { loading, data } = useQuery(QUERIES);
 
   if (loading) return <p>Loading...</p>;
   return (
@@ -38,6 +45,35 @@ function AdminPage() {
             </tr>
           </tbody>
         ))}
+        <br></br>
+      </Table>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>User Email</th>
+            <th>Appointment Date</th>
+            <th>Appointment Time</th>
+            <th>Appointment Type</th>
+          </tr>
+        </thead>
+        {data.getAppointments.map(
+          ({
+            id,
+            userEmail,
+            appointmentDate,
+            appointmentTime,
+            appointmentType
+          }) => (
+            <tbody>
+              <tr key={id}>
+                <td>{userEmail}</td>
+                <td>{appointmentDate}</td>
+                <td>{appointmentTime}</td>
+                <td>{appointmentType}</td>
+              </tr>
+            </tbody>
+          )
+        )}
       </Table>
     </div>
   );

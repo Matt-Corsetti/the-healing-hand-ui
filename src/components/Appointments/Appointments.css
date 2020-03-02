@@ -1,0 +1,24 @@
+.form-container {
+  margin: auto;
+  margin-top: 1em;
+  width: 50%;
+  padding: 10px;
+  background-color: #fbfbf8;
+  text-align: center;
+}
+
+.btn-primary {
+  width: 100%;
+}
+
+.btn-danger {
+  width: 100%;
+}
+
+.btn-submit {
+  padding-top: 10px;
+}
+
+.btn-cancel {
+  padding-top: 10px;
+}
