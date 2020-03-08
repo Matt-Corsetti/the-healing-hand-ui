@@ -4,32 +4,32 @@ import { gql } from "apollo-boost";
 
 import { Table } from "react-bootstrap";
 
-const QUERIES = gql`
-  {
-    getUsers {
-      id
-      firstName
-      lastName
-      email
-    }
-    getAppointments {
-      id
-      userEmail
-      appointmentDate
-      appointmentTime
-      appointmentType
-    }
-  }
-`;
+// const QUERIES = gql`
+//   {
+//     getUsers {
+//       id
+//       firstName
+//       lastName
+//       email
+//     }
+//     getAppointments {
+//       id
+//       userEmail
+//       appointmentDate
+//       appointmentTime
+//       appointmentType
+//     }
+//   }
+// `;
 
 function AdminPage() {
-  const { loading, data } = useQuery(QUERIES);
+  // const { loading, data } = useQuery(QUERIES);
 
-  if (loading) return <p>Loading...</p>;
+  // if (loading) return <p>Loading...</p>;
   return (
     <div className="App">
       <Table striped bordered hover>
-        <thead>
+        {/* <thead>
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
@@ -73,7 +73,7 @@ function AdminPage() {
               </tr>
             </tbody>
           )
-        )}
+        )} */}
       </Table>
     </div>
   );

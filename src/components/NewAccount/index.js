@@ -10,30 +10,30 @@ import "./NewAccount.css";
 
 import validationSchema from "./validation";
 
-const SIGN_UP = gql`
-  mutation signUp(
-    $firstName: String!
-    $lastName: String!
-    $email: String!
-    $password: String!
-  ) {
-    signUp(
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-      password: $password
-    ) {
-      id
-      firstName
-      lastName
-      email
-    }
-  }
-`;
+// const SIGN_UP = gql`
+//   mutation signUp(
+//     $firstName: String!
+//     $lastName: String!
+//     $email: String!
+//     $password: String!
+//   ) {
+//     signUp(
+//       firstName: $firstName
+//       lastName: $lastName
+//       email: $email
+//       password: $password
+//     ) {
+//       id
+//       firstName
+//       lastName
+//       email
+//     }
+//   }
+// `;
 
 function NewAccountPage() {
   const [open, setOpen] = useState(false);
-  const [signUp] = useMutation(SIGN_UP);
+  // const [signUp] = useMutation(SIGN_UP);
 
   const MyTextField = ({ label, placeholder, style, type, ...props }) => {
     const [field, meta] = useField(props);
@@ -68,14 +68,14 @@ function NewAccountPage() {
       <Formik
         initialValues={{ firstName: "", lastName: "", email: "", password: "" }}
         onSubmit={(data, { setSubmitting, resetForm }) => {
-          signUp({
-            variables: {
-              firstName: data.firstName,
-              lastName: data.lastName,
-              email: data.email,
-              password: data.password
-            }
-          });
+          // signUp({
+          //   variables: {
+          //     firstName: data.firstName,
+          //     lastName: data.lastName,
+          //     email: data.email,
+          //     password: data.password
+          //   }
+          // });
 
           handleClick();
 

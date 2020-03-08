@@ -33,27 +33,27 @@ import validationSchema from "./validation";
 
 // import { Form, Button, Col } from "react-bootstrap";
 
-const ADD_APPOINTMENTS = gql`
-  mutation addAppointment(
-    $userEmail: String!
-    $appointmentDate: String!
-    $appointmentTime: String!
-    $appointmentType: String!
-  ) {
-    addAppointment(
-      userEmail: $userEmail
-      appointmentDate: $appointmentDate
-      appointmentTime: $appointmentTime
-      appointmentType: $appointmentType
-    ) {
-      id
-      userEmail
-      appointmentDate
-      appointmentTime
-      appointmentType
-    }
-  }
-`;
+// const ADD_APPOINTMENTS = gql`
+//   mutation addAppointment(
+//     $userEmail: String!
+//     $appointmentDate: String!
+//     $appointmentTime: String!
+//     $appointmentType: String!
+//   ) {
+//     addAppointment(
+//       userEmail: $userEmail
+//       appointmentDate: $appointmentDate
+//       appointmentTime: $appointmentTime
+//       appointmentType: $appointmentType
+//     ) {
+//       id
+//       userEmail
+//       appointmentDate
+//       appointmentTime
+//       appointmentType
+//     }
+//   }
+// `;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -122,7 +122,7 @@ function AppointmentsPage() {
     setOpen(true);
   };
 
-  const [addAppointment] = useMutation(ADD_APPOINTMENTS);
+  // const [addAppointment] = useMutation(ADD_APPOINTMENTS);
 
   return (
     <div className="left-container">
@@ -153,14 +153,14 @@ function AppointmentsPage() {
                     .toISOString()
                     .substring(0, 10);
                   console.log(dateString);
-                  addAppointment({
-                    variables: {
-                      userEmail: "test@email.ca",
-                      appointmentDate: dateString,
-                      appointmentTime: time,
-                      appointmentType: appointmentType
-                    }
-                  });
+                  // addAppointment({
+                  //   variables: {
+                  //     userEmail: "test@email.ca",
+                  //     appointmentDate: dateString,
+                  //     appointmentTime: time,
+                  //     appointmentType: appointmentType
+                  //   }
+                  // });
 
                   handleClick();
 
