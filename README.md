@@ -1,3 +1,36 @@
+
+## Introduction 
+
+This project is created by: Matt Corsetti
+
+This is the frontend for The Healing Hand website that I am developing.
+
+## Instructions
+
+### Getting Started 
+
+The first thing you will need is a IDE such as [Visual Studio Code](https://code.visualstudio.com/), [Atom](https://atom.io/), or whatever your IDE of choice is. I use [Visual Studio Code](https://code.visualstudio.com/). 
+
+The tech stack for this project is the MERN (MongoDB, Express, React, Node.js) + ApolloServer-GraphQL stack so experience in this tech stack is recommended. However, I am no where near an expert in this tech stack, and it is a lot of fun to learn about so I highly recommend giving it a chance. 
+
+### Building and Running the Project  
+
+You will need the following versions of the technologies: 
+
+React: 16.12.0
+npm: 6.13.1
+Node.js: 13.9.0 
+JavaScript: ES6
+
+In order to get this project running on your own device, the first thing you should do is clone this repo. 
+https://github.com/Matt-Corsetti/the-healing-hand-ui.git
+
+Once you have cloned the repo to your own device, I would cd to the location you cloned the folder to and run the following command to ensure all the node modules and depencies get installed on the project: npm install.
+
+Lastly, when you are finished installing all the node modules and depencies you should be able to run the start command "npm start" and the application will be up and running in just a couple of minutes. 
+
+## More Details
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
