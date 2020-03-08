@@ -171,8 +171,6 @@ function AppointmentsPage() {
                   setSubmitting(false);
 
                   resetForm();
-
-                  sendAppointmentEmail();
                 }}
                 validationSchema={validationSchema}
               >
