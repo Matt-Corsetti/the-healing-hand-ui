@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
+import { Formik, Form, useField } from "formik";
+import { TextField, Button, Snackbar } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
+
 import "./NewAccount.css";
 
-import { Form, Button, Col } from "react-bootstrap";
+import validationSchema from "./validation";
 
 const SIGN_UP = gql`
   mutation signUp(
@@ -28,154 +32,137 @@ const SIGN_UP = gql`
 `;
 
 function NewAccountPage() {
-  const [validated, setValidated] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
-  const [
-    confirmPasswordErrorMessage,
-    setConfirmPasswordErrorMessage
-  ] = useState("");
-
+  const [open, setOpen] = useState(false);
   const [signUp] = useMutation(SIGN_UP);
 
-  const handleSubmit = event => {
-    const form = event.currentTarget;
+  const MyTextField = ({ label, placeholder, style, type, ...props }) => {
+    const [field, meta] = useField(props);
+    const errorText = meta.error && meta.touched ? meta.error : "";
+    return (
+      <TextField
+        label={label}
+        placeholder={placeholder}
+        style={style}
+        type={type}
+        {...field}
+        helperText={errorText}
+        error={!!errorText}
+      />
+    );
+  };
 
-    alert(passwordErrorMessage);
-    if (password !== confirmPassword) {
-      event.preventDefault();
-      event.stopPropagation();
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
     }
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
 
-    // signUp({
-    //   variables: {
-    //     firstName: firstName,
-    //     lastName: lastName,
-    //     email: email,
-    //     password: password
-    //   }
-    // });
+    setOpen(false);
+  };
 
-    setValidated(true);
+  const handleClick = () => {
+    setOpen(true);
   };
 
   return (
     <div className="form-container">
-      <Form
-        noValidate
-        validated={validated}
-        onSubmit={e => {
-          e.preventDefault();
+      <Formik
+        initialValues={{ firstName: "", lastName: "", email: "", password: "" }}
+        onSubmit={(data, { setSubmitting, resetForm }) => {
           signUp({
             variables: {
-              firstName: firstName,
-              lastName: lastName,
-              email: email,
-              password: password
+              firstName: data.firstName,
+              lastName: data.lastName,
+              email: data.email,
+              password: data.password
             }
           });
-        }} /*onSubmit={handleSubmit}*/
+
+          handleClick();
+
+          setSubmitting(true);
+          // make async call
+          console.log(data);
+
+          setSubmitting(false);
+
+          resetForm();
+        }}
+        validationSchema={validationSchema}
       >
-        <Form.Row>
-          <Form.Group as={Col} md="12" controlId="validationCustom01">
-            <Form.Label>First Name</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              value={firstName}
-              onChange={e => setFirstName(e.target.value)}
+        {({ values, isSubmitting }) => (
+          <Form>
+            <h2>SIGN UP</h2>
+            <MyTextField
+              label="First Name"
               placeholder="First Name"
+              name="firstName"
+              type="input"
+              style={{ width: 500 }}
             />
-            <Form.Control.Feedback>Looks Good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              First Name is Required
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Form.Row>
-        <Form.Row>
-          <Form.Group as={Col} md="12" controlId="validationCustom02">
-            <Form.Label>Last Name</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              value={lastName}
-              onChange={e => setLastName(e.target.value)}
-              placeholder="Last Name"
-            />
-            <Form.Control.Feedback>Looks Good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              Last Name is Required
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Form.Row>
-        <Form.Row>
-          <Form.Group as={Col} md="12" controlId="validationCustomEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              required
-              tpye="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              placeholder="name@example.com"
-            />
-            <Form.Control.Feedback type="invalid">
-              Please Enter a Valid Email
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Form.Row>
-        <Form.Row>
-          <Form.Group as={Col} md="12" controlId="validationCustomPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              required
-              value={password}
-              type="password"
-              onChange={e => setPassword(e.target.value)}
-              placeholder="Password"
-            />
-            <Form.Control.Feedback>Looks Good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              {passwordErrorMessage}
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Form.Row>
-        <Form.Row>
-          <Form.Group
-            as={Col}
-            md="12"
-            controlId="validationCustomConfirmPassword"
-          >
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control
-              required
-              type="password"
-              value={password}
-              onChange={e => setConfirmPassword(e.target.value)}
-              placeholder="Confirm Password"
-            />
-            <Form.Control.Feedback>Looks Good!</Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              {confirmPasswordErrorMessage}
-            </Form.Control.Feedback>
-          </Form.Group>
-        </Form.Row>
-        <Form.Group>
-          <div className="btn-submit">
-            <Button type="submit">Sign-Up</Button>
-          </div>
-          <div className="btn-cancel">
-            <Button variant="danger ">Cancel</Button>
-          </div>
-        </Form.Group>
-      </Form>
+            <div className="lastName-div">
+              <MyTextField
+                label="Last Name"
+                placeholder="Last Name"
+                name="lastName"
+                type="input"
+                style={{ width: 500 }}
+              />
+              <div className="email-div">
+                <MyTextField
+                  label="Email"
+                  placeholder="Email"
+                  name="email"
+                  type="email"
+                  style={{ width: 500 }}
+                />
+              </div>
+              <div className="password-div">
+                <MyTextField
+                  label="Password"
+                  placeholder="Password"
+                  name="password"
+                  type="password"
+                  style={{ width: 500 }}
+                />
+              </div>
+            </div>
+            <div className="submitBtn-div">
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={isSubmitting}
+                type="submit"
+                style={{ width: 500 }}
+              >
+                Submit
+              </Button>
+            </div>
+            <div className="resetBtn-div">
+              <Button
+                variant="contained"
+                color="secondary"
+                disabled={isSubmitting}
+                type="reset"
+                style={{ width: 500 }}
+              >
+                Cancel
+              </Button>
+            </div>
+            <div className="alert-div">
+              <Snackbar
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+              >
+                <Alert onClose={handleClose} severity="success">
+                  Account Created Succesfully!
+                </Alert>
+              </Snackbar>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 }

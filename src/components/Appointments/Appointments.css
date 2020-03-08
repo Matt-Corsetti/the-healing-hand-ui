@@ -1,24 +1,41 @@
-.form-container {
+.left-container {
   margin: auto;
   margin-top: 1em;
-  width: 50%;
   padding: 10px;
-  background-color: #fbfbf8;
+  width: 65%;
   text-align: center;
 }
-
-.btn-primary {
-  width: 100%;
+.datePicker-div {
+  padding: 10px;
+  text-align: center;
+  width: 50%;
+  margin: auto;
+  margin-top: 1em;
 }
 
-.btn-danger {
-  width: 100%;
+.time-select {
+  padding: 10px;
+  text-align: center;
+  width: 50%;
+  margin: auto;
+  margin-top: 1em;
 }
 
-.btn-submit {
-  padding-top: 10px;
+.type-select {
+  padding: 10px;
+  text-align: center;
+  width: 50%;
+  margin: auto;
+  margin-top: 1em;
+}
+.submitBtn-div {
+  padding-top: 50px;
 }
 
-.btn-cancel {
-  padding-top: 10px;
+.resetBtn-div {
+  padding: 10px;
+}
+
+.alert-div {
+  padding: 10px;
 }

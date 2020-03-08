@@ -7,18 +7,30 @@
   text-align: center;
 }
 
-.btn-primary {
-  width: 100%;
+h2 {
+  padding: 10px;
 }
 
-.btn-danger {
-  width: 100%;
+.lastName-div {
+  padding: 10px;
 }
 
-.btn-submit {
-  padding-top: 10px;
+.password-div {
+  padding: 10px;
 }
 
-.btn-cancel {
-  padding-top: 10px;
+.email-div {
+  padding: 10px;
+}
+
+.submitBtn-div {
+  padding: 10px;
+}
+
+.resetBtn-div {
+  padding: 10px;
+}
+
+.alert-div {
+  padding: 10px;
 }
