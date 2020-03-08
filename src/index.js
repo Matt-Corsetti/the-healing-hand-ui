@@ -12,7 +12,7 @@ import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql"
+  uri: "https://warm-oasis-60605.herokuapp.com//graphql"
 });
 
 client
