@@ -11,29 +11,29 @@ import * as serviceWorker from "./serviceWorker";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-// const client = new ApolloClient({
-//   uri: "/graphql"
-// });
+const client = new ApolloClient({
+  uri: "/graphql"
+});
 
-// client
-//   .query({
-//     query: gql`
-//       {
-//         getUsers {
-//           id
-//           firstName
-//           lastName
-//           email
-//         }
-//       }
-//     `
-//   })
-//   .then(result => console.log(result));
+client
+  .query({
+    query: gql`
+      {
+        getUsers {
+          id
+          firstName
+          lastName
+          email
+        }
+      }
+    `
+  })
+  .then(result => console.log(result));
 
 ReactDOM.render(
-  // <ApolloProvider client={client}>
-  <App />,
-  // </ApolloProvider>,
+  <ApolloProvider client={client}>
+    <App />,
+  </ApolloProvider>,
   document.getElementById("root")
 );
 
