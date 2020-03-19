@@ -172,7 +172,7 @@ function AppointmentsPage() {
 
                   resetForm();
 
-                  sendAppointmentEmail();
+                  // sendAppointmentEmail();
                 }}
                 validationSchema={validationSchema}
               >
