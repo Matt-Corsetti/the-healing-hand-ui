@@ -9,6 +9,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import SendIcon from "@material-ui/icons/Send";
 import IconButton from "@material-ui/core/IconButton";
 import PropTypes from "prop-types";
+import SaveIcon from "@material-ui/icons/Save";
 
 import {
   makeStyles,
@@ -20,11 +21,15 @@ import {
   TableRow,
   Paper,
   Grid,
-  AppBar,
   Tabs,
   Tab,
   Typography,
-  Box
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  Icon,
+  Button
 } from "@material-ui/core";
 
 function TabPanel(props) {
@@ -62,6 +67,11 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper
   },
+  header: {
+    flexGrow: 1,
+    padding: theme.spacing(2),
+    textAlign: "center"
+  },
   table: {
     mindWidth: 500,
     padding: theme.spacing(2)
@@ -69,6 +79,20 @@ const useStyles = makeStyles(theme => ({
   userTableHeader: {
     textAlign: "center",
     padding: theme.spacing(2)
+  },
+  title: {
+    fontSize: 20,
+    textAlign: "center"
+  },
+  content: {
+    textAlign: "center"
+  },
+  contentButton: {
+    justifyContent: "center"
+  },
+  cardBackground: {
+    backgroundColor: "#e5e5e5",
+    minWidth: "100px"
   }
 }));
 
@@ -102,6 +126,13 @@ function AdminPage() {
   if (loading) return <p>Loading...</p>;
   return (
     <div className="admin-content">
+      <div className="admin-header">
+        <Grid item xs={12}>
+          <Paper className={classes.header}>
+            <h1> -- ADMIN DASHBOARD -- </h1>
+          </Paper>
+        </Grid>
+      </div>
       <div className={classes.root}>
         <Tabs
           value={value}
@@ -199,7 +230,162 @@ function AdminPage() {
           </Grid>
         </TabPanel>
         <TabPanel value={value} index={2}>
-          Reports
+          <Grid container justify="center" alignItems="center" spacing={3}>
+            <Grid item xs={12} sm={2}>
+              <Card className={classes.cardBackground}>
+                <CardContent>
+                  <Typography
+                    className={classes.title}
+                    color="textPrimary"
+                    gutterBottom
+                  >
+                    Total Appointments
+                  </Typography>
+                  {data.getUsers.map.count}
+                  <Typography
+                    className={classes.content}
+                    variant="h2"
+                    component="h2"
+                  >
+                    25
+                  </Typography>
+                </CardContent>
+                <CardActions className={classes.contentButton}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    startIcon={<SaveIcon />}
+                  >
+                    Save
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={2}>
+              <Card className={classes.cardBackground}>
+                <CardContent>
+                  <Typography
+                    className={classes.title}
+                    color="textPrimary"
+                    gutterBottom
+                  >
+                    Total Users
+                  </Typography>
+                  <Typography
+                    className={classes.content}
+                    variant="h2"
+                    component="h2"
+                  >
+                    17
+                  </Typography>
+                </CardContent>
+                <CardActions className={classes.contentButton}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    startIcon={<SaveIcon />}
+                  >
+                    Save
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={2}>
+              <Card className={classes.cardBackground}>
+                <CardContent>
+                  <Typography
+                    className={classes.title}
+                    color="textPrimary"
+                    gutterBottom
+                  >
+                    Reflexology Appointments
+                  </Typography>
+                  {data.getUsers.map.count}
+                  <Typography
+                    className={classes.content}
+                    variant="h2"
+                    component="h2"
+                  >
+                    25
+                  </Typography>
+                </CardContent>
+                <CardActions className={classes.contentButton}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    startIcon={<SaveIcon />}
+                  >
+                    Save
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={2}>
+              <Card className={classes.cardBackground}>
+                <CardContent>
+                  <Typography
+                    className={classes.title}
+                    color="textPrimary"
+                    gutterBottom
+                  >
+                    Reiki Appointments
+                  </Typography>
+                  {data.getUsers.map.count}
+                  <Typography
+                    className={classes.content}
+                    variant="h2"
+                    component="h2"
+                  >
+                    25
+                  </Typography>
+                </CardContent>
+                <CardActions className={classes.contentButton}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    startIcon={<SaveIcon />}
+                  >
+                    Save
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={2}>
+              <Card className={classes.cardBackground}>
+                <CardContent>
+                  <Typography
+                    className={classes.title}
+                    color="textPrimary"
+                    gutterBottom
+                  >
+                    Massage Appointments
+                  </Typography>
+                  {data.getUsers.map.count}
+                  <Typography
+                    className={classes.content}
+                    variant="h2"
+                    component="h2"
+                  >
+                    25
+                  </Typography>
+                </CardContent>
+                <CardActions className={classes.contentButton}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    startIcon={<SaveIcon />}
+                  >
+                    Save
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          </Grid>
         </TabPanel>
       </div>
     </div>

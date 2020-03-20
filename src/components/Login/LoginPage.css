@@ -1,0 +1,24 @@
+.email-div {
+  padding: 10px;
+}
+
+.password-div {
+  padding: 10px;
+}
+
+.submitBtn-div {
+  padding: 10px;
+}
+
+.form-container {
+  margin: auto;
+  margin-top: 1em;
+  width: 50%;
+  padding: 10px;
+  background-color: #fbfbf8;
+  text-align: center;
+}
+
+h2 {
+  padding: 10px;
+}
