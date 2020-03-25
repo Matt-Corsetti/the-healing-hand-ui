@@ -28,6 +28,7 @@ function App() {
   const logout = () => {
     setToken(null);
     setUserId(null);
+    setLoggedInFlag(false);
   };
 
   return (

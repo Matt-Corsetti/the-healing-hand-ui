@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 
@@ -144,9 +144,8 @@ function AppointmentsPage() {
               <Formik
                 initialValues={{
                   appointmentDate: "",
-                  appointmentTimes: [{ time: "9:00AM" }],
-                  appointmentType: "",
-                  age: ""
+                  appointmentTime: "",
+                  appointmentType: ""
                 }}
                 onSubmit={(data, { setSubmitting, resetForm }) => {
                   const dateString = selectedDate
@@ -155,26 +154,26 @@ function AppointmentsPage() {
                   console.log(dateString);
                   addAppointment({
                     variables: {
-                      userEmail: "test@email.ca",
+                      userEmail: "newuser@email.com",
                       appointmentDate: dateString,
                       appointmentTime: time,
                       appointmentType: appointmentType
                     }
                   });
 
-                  handleClick();
+                  // handleClick();
 
                   setSubmitting(true);
-
-                  console.log(data);
 
                   setSubmitting(false);
 
                   resetForm();
 
+                  alert("Your appointment has been created succesfully!");
+
                   // sendAppointmentEmail();
                 }}
-                validationSchema={validationSchema}
+                // validationSchema={validationSchema}
               >
                 {({ values, errors, isSubmitting, resetForm }) => (
                   <Form>
@@ -257,7 +256,7 @@ function AppointmentsPage() {
                       >
                         Cancel
                       </Button>
-                      <div className="alert-div">
+                      {/* <div className="alert-div">
                         <Snackbar
                           anchorOrigin={{
                             vertical: "top",
@@ -271,7 +270,7 @@ function AppointmentsPage() {
                             Appointment Created Succesfully!
                           </Alert>
                         </Snackbar>
-                      </div>
+                      </div> */}
                     </div>
                   </Form>
                 )}

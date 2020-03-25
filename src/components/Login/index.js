@@ -4,13 +4,14 @@ import { Formik, Form, useField } from "formik";
 import { TextField, Button } from "@material-ui/core";
 import validationSchema from "./validation";
 import "./LoginPage.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import AuthContext from "../../context/auth-context";
 
 function Login({ setLoggedInFlag, setToken, setUserId, setTokenExpiration }) {
   // const contextType = { AuthContext };
 
+  let history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -53,26 +54,30 @@ function Login({ setLoggedInFlag, setToken, setUserId, setTokenExpiration }) {
             "Content-Type": "application/json"
           }
         })
-          .then(result => result.json())
-          .then(async result => {
-            console.log(result);
-            setToken(result.data.login.token);
-            setUserId(result.data.login.userId);
-            setTokenExpiration(result.data.login.tokenExpiration);
+          .then(response => response.json())
+          .then(async response => {
+            if (typeof response.errors !== "undefined") {
+              console.log(response.errors[0].message);
+              resetForm();
+              alert(
+                "Make sure you have entered the correct email and password. If you do not have an account please press the 'Sign-Up button."
+              );
+            } else {
+              console.log("Success", response);
+              setToken(response.data.login.token);
+              setUserId(response.data.login.userId);
+              setTokenExpiration(response.data.login.tokenExpiration);
+              resetForm();
+              setLoggedInFlag(true);
+
+              alert("You are now logged in");
+
+              history.push("/");
+            }
           })
           .catch(err => {
-            console.log(err);
+            console.log("Error:", err);
           });
-
-        setSubmitting(true);
-
-        setSubmitting(false);
-
-        resetForm();
-
-        setLoggedInFlag(true);
-
-        alert("You are now logged in");
       }}
       validationSchema={validationSchema}
     >

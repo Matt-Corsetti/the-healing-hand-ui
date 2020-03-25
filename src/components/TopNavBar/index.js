@@ -123,7 +123,7 @@ function TopNavBar() {
                           onClose={handleClose}
                         >
                           <MenuItem onClick={handleClose}>Profile</MenuItem>
-                          <MenuItem onClick={handleClose}>Sign-Out</MenuItem>
+                          <MenuItem onClick={context.logout}>Sign-Out</MenuItem>
                         </Menu>
                       </div>
                     )}
