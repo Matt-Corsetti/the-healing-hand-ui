@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import { useHistory } from "react-router-dom";
 
 import "./AdminPage.css";
 
@@ -32,6 +33,7 @@ import {
   Button
 } from "@material-ui/core";
 
+import nodemailer from "nodemailer";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -60,6 +62,68 @@ function a11yProps(index) {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`
   };
+}
+
+function deleteAppointment(id) {
+  const requestBody = {
+    query: `
+      mutation {
+        deleteAppointment(id: "${id}"){
+          deletedId
+        }
+      }`
+  };
+
+  fetch("http://localhost:4000/graphql", {
+    method: "POST",
+    body: JSON.stringify(requestBody),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(async response => {
+      if (typeof response.errors !== "undefined") {
+        console.log(response.errors[0].message);
+      } else {
+        console.log("Success", response);
+        alert("Appointment Deleted");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
+}
+
+function deleteUser(id) {
+  const requestBody = {
+    query: `
+      mutation {
+        deleteUser(id: "${id}"){
+          deletedId
+        }
+      }`
+  };
+
+  fetch("http://localhost:4000/graphql", {
+    method: "POST",
+    body: JSON.stringify(requestBody),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(async response => {
+      if (typeof response.errors !== "undefined") {
+        console.log(response.errors[0].message);
+      } else {
+        console.log("Success", response);
+        alert("User Deleted");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
 }
 
 const useStyles = makeStyles(theme => ({
@@ -96,6 +160,106 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+function totalApps() {
+  const totalApps = document.getElementById("totalNumberOfApps").innerHTML;
+  let d = new Date();
+  const rows = [
+    ["Total Number of Appointments", "Date Report Generated"],
+    [totalApps, d]
+  ];
+
+  let csvContent =
+    "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
+
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "totalAppointments.csv");
+  document.body.appendChild(link);
+
+  link.click();
+}
+
+function totalNumUsers() {
+  const totalApps = document.getElementById("totalNumUsers").innerHTML;
+  let d = new Date();
+  const rows = [
+    ["Total Number of Users", "Date Report Generated"],
+    [totalApps, d]
+  ];
+
+  let csvContent =
+    "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
+
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "totalUsers.csv");
+  document.body.appendChild(link);
+
+  link.click();
+}
+
+function totalNumReflex() {
+  const totalApps = document.getElementById("totalReflex").innerHTML;
+  let d = new Date();
+  const rows = [
+    ["Total Number of Reflexology Appointments", "Date Report Generated"],
+    [totalApps, d]
+  ];
+
+  let csvContent =
+    "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
+
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "totalReflexApps.csv");
+  document.body.appendChild(link);
+
+  link.click();
+}
+
+function totalNumReiki() {
+  const totalApps = document.getElementById("totalReiki").innerHTML;
+  let d = new Date();
+  const rows = [
+    ["Total Number of Reiki Appointments", "Date Report Generated"],
+    [totalApps, d]
+  ];
+
+  let csvContent =
+    "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
+
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "totalReikiApps.csv");
+  document.body.appendChild(link);
+
+  link.click();
+}
+
+function totalNumMassage() {
+  const totalApps = document.getElementById("totalMassage").innerHTML;
+  let d = new Date();
+  const rows = [
+    ["Total Number of Massage Appointments", "Date Report Generated"],
+    [totalApps, d]
+  ];
+
+  let csvContent =
+    "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
+
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "totalMassageApps.csv");
+  document.body.appendChild(link);
+
+  link.click();
+}
+
 const QUERIES = gql`
   {
     getUsers {
@@ -111,6 +275,21 @@ const QUERIES = gql`
       appointmentTime
       appointmentType
     }
+    getTotalUsers {
+      totalUsers
+    }
+    getTotalAppointments {
+      totalNumberOfApps
+    }
+    getTotalReflexology {
+      totalReflexologyApps
+    }
+    getTotalMassage {
+      totalMassageApps
+    }
+    getTotalReiki {
+      totalReikiApps
+    }
   }
 `;
 
@@ -118,6 +297,8 @@ function AdminPage() {
   const classes = useStyles();
   const [value, setValue] = useState(0);
   const { loading, data } = useQuery(QUERIES);
+  const [totalAppointments, setTotalAppointments] = useState("");
+  // const anObj = Object.values(data.getTotalUsers);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -126,13 +307,7 @@ function AdminPage() {
   if (loading) return <p>Loading...</p>;
   return (
     <div className="admin-content">
-      <div className="admin-header">
-        <Grid item xs={12}>
-          <Paper className={classes.header}>
-            <h1> -- ADMIN DASHBOARD -- </h1>
-          </Paper>
-        </Grid>
-      </div>
+      <div className="admin-header"></div>
       <div className={classes.root}>
         <Tabs
           value={value}
@@ -166,7 +341,10 @@ function AdminPage() {
                       <TableCell>{lastName}</TableCell>
                       <TableCell>{email}</TableCell>
                       <TableCell>
-                        <IconButton aria-label="delete">
+                        <IconButton
+                          aria-label="delete"
+                          onClick={deleteUser.bind(this, id)}
+                        >
                           <DeleteIcon />
                         </IconButton>
                       </TableCell>
@@ -217,7 +395,10 @@ function AdminPage() {
                           </IconButton>
                         </TableCell>
                         <TableCell align="right">
-                          <IconButton aria-label="delete">
+                          <IconButton
+                            aria-label="delete"
+                            onClick={deleteAppointment.bind(this, id)}
+                          >
                             <DeleteIcon />
                           </IconButton>
                         </TableCell>
@@ -247,7 +428,15 @@ function AdminPage() {
                     variant="h2"
                     component="h2"
                   >
-                    25
+                    {Object.entries(data.getTotalAppointments).map(
+                      ([key, value]) => {
+                        return (
+                          <span id="totalNumberOfApps">
+                            {data.getTotalAppointments[key]}
+                          </span>
+                        );
+                      }
+                    )}
                   </Typography>
                 </CardContent>
                 <CardActions className={classes.contentButton}>
@@ -256,8 +445,9 @@ function AdminPage() {
                     color="primary"
                     size="small"
                     startIcon={<SaveIcon />}
+                    onClick={totalApps}
                   >
-                    Save
+                    Save As CSV
                   </Button>
                 </CardActions>
               </Card>
@@ -277,17 +467,25 @@ function AdminPage() {
                     variant="h2"
                     component="h2"
                   >
-                    17
+                    {Object.entries(data.getTotalUsers).map(([key, value]) => {
+                      return (
+                        <span id="totalNumUsers">
+                          {data.getTotalUsers[key]}
+                        </span>
+                      );
+                    })}
                   </Typography>
                 </CardContent>
+
                 <CardActions className={classes.contentButton}>
                   <Button
                     variant="contained"
                     color="primary"
                     size="small"
                     startIcon={<SaveIcon />}
+                    onClick={totalNumUsers}
                   >
-                    Save
+                    Save As CSV
                   </Button>
                 </CardActions>
               </Card>
@@ -308,7 +506,15 @@ function AdminPage() {
                     variant="h2"
                     component="h2"
                   >
-                    25
+                    {Object.entries(data.getTotalReflexology).map(
+                      ([key, value]) => {
+                        return (
+                          <span id="totalReflex">
+                            {data.getTotalReflexology[key]}
+                          </span>
+                        );
+                      }
+                    )}
                   </Typography>
                 </CardContent>
                 <CardActions className={classes.contentButton}>
@@ -317,8 +523,9 @@ function AdminPage() {
                     color="primary"
                     size="small"
                     startIcon={<SaveIcon />}
+                    onClick={totalNumReflex}
                   >
-                    Save
+                    Save As CSV
                   </Button>
                 </CardActions>
               </Card>
@@ -339,7 +546,11 @@ function AdminPage() {
                     variant="h2"
                     component="h2"
                   >
-                    25
+                    {Object.entries(data.getTotalReiki).map(([key, value]) => {
+                      return (
+                        <span id="totalReiki">{data.getTotalReiki[key]}</span>
+                      );
+                    })}
                   </Typography>
                 </CardContent>
                 <CardActions className={classes.contentButton}>
@@ -348,8 +559,9 @@ function AdminPage() {
                     color="primary"
                     size="small"
                     startIcon={<SaveIcon />}
+                    onClick={totalNumReiki}
                   >
-                    Save
+                    Save As CSV
                   </Button>
                 </CardActions>
               </Card>
@@ -370,7 +582,15 @@ function AdminPage() {
                     variant="h2"
                     component="h2"
                   >
-                    25
+                    {Object.entries(data.getTotalMassage).map(
+                      ([key, value]) => {
+                        return (
+                          <span id="totalMassage">
+                            {data.getTotalMassage[key]}
+                          </span>
+                        );
+                      }
+                    )}
                   </Typography>
                 </CardContent>
                 <CardActions className={classes.contentButton}>
@@ -379,8 +599,9 @@ function AdminPage() {
                     color="primary"
                     size="small"
                     startIcon={<SaveIcon />}
+                    onClick={totalNumMassage}
                   >
-                    Save
+                    Save As CSV
                   </Button>
                 </CardActions>
               </Card>

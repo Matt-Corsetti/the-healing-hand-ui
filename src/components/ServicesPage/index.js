@@ -44,11 +44,6 @@ function ServicesPage() {
     <div className="services-container">
       <div className={classes.root}>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>
-              <h1> -- SERVICES -- </h1>
-            </Paper>
-          </Grid>
           <Grid item xs={12} sm={4}>
             <Card className={classes.cardStyle}>
               <CardActionArea>

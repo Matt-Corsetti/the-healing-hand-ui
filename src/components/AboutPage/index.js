@@ -44,11 +44,6 @@ function AboutPage() {
     <div className="about-content">
       <div className={classes.root}>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Paper className={classes.root}>
-              <h1> -- ABOUT -- </h1>
-            </Paper>
-          </Grid>
           <Grid item xs={8}>
             <Paper className={classes.paper}>
               <div className="p-content">

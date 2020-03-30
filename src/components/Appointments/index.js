@@ -127,15 +127,7 @@ function AppointmentsPage() {
   return (
     <div className="left-container">
       <div className={classes.root}>
-        <div className="header-div">
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <h2>Appointment Dashboard</h2>
-              </Paper>
-            </Grid>
-          </Grid>
-        </div>
+        <div className="header-div"></div>
 
         <Grid container spacing={3}>
           <Grid item xs={12}>

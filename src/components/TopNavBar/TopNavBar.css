@@ -7,3 +7,13 @@
   padding-right: 5px;
   float: right;
 }
+
+.nav-item:hover {
+  color: #ffffff;
+  background-color: #ee4400;
+}
+
+.nav-item > a:active {
+  color: #ffffff;
+  background-color: #ee4400;
+}

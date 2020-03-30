@@ -8,7 +8,15 @@ import { Link, useHistory } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import AuthContext from "../../context/auth-context";
 
-function Login({ setLoggedInFlag, setToken, setUserId, setTokenExpiration }) {
+function Login({
+  setLoggedInFlag,
+  setToken,
+  setUserId,
+  setTokenExpiration,
+  setUserFirstName,
+  setUserLastName,
+  setUserEmail
+}) {
   // const contextType = { AuthContext };
 
   let history = useHistory();
@@ -42,6 +50,9 @@ function Login({ setLoggedInFlag, setToken, setUserId, setTokenExpiration }) {
                 userId
                 token
                 tokenExpiration
+                firstName
+                lastName
+                email
               }
             }
           `
@@ -67,6 +78,9 @@ function Login({ setLoggedInFlag, setToken, setUserId, setTokenExpiration }) {
               setToken(response.data.login.token);
               setUserId(response.data.login.userId);
               setTokenExpiration(response.data.login.tokenExpiration);
+              setUserFirstName(response.data.login.firstName);
+              setUserLastName(response.data.login.lastName);
+              setUserEmail(response.data.login.email);
               resetForm();
               setLoggedInFlag(true);
 

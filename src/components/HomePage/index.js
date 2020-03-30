@@ -26,6 +26,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const defaultProps = {
+  bgcolor: "background.paper",
+  borderColor: "text.primary",
+  m: 1,
+  border: 0,
+  style: { width: "10rem", height: "10rem" }
+};
+
 function Home() {
   const classes = useStyles();
 
@@ -34,12 +42,6 @@ function Home() {
       <div className={classes.root}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Paper className={classes.paper}>
-              <h1> -- Welcome to The Healing Hand -- </h1>
-              <h4> RELAX | REFRESH | REVITALIZE</h4>
-            </Paper>
-          </Grid>
-          <Grid item xs={8}>
             <Paper className={classes.paper}>
               <div>
                 <h2>THE HEALING HAND’S PHILOSOPHY</h2>
@@ -107,43 +109,6 @@ function Home() {
                   Services or to purchase one of my Healing Products, and{" "}
                   <b>“Let my hands help you maintain your health!”</b>
                 </p>
-              </div>
-            </Paper>
-          </Grid>
-          <Grid item xs>
-            <Paper className={classes.paper}>
-              <div>
-                <h3>- NEED A GIFT IDEA? -</h3>
-                <Card className={classes.root}>
-                  <CardActionArea>
-                    <CardMedia
-                      style={{ height: "1000px" }}
-                      component="img"
-                      className={classes.media}
-                      image={candles}
-                      title="New Product"
-                    />
-
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        Candles
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                      >
-                        This is where the description of the product is going to
-                        go.
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      View More
-                    </Button>
-                  </CardActions>
-                </Card>
               </div>
             </Paper>
           </Grid>

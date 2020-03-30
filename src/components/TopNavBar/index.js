@@ -18,6 +18,7 @@ import { AccountCircle } from "@material-ui/icons";
 import { Menu, MenuItem, IconButton } from "@material-ui/core";
 
 import "./TopNavBar.css";
+import HealingHandLogo from "../../img/HealingHandTransparent.png";
 
 const LOGIN = gql`
   query login($email: String!, $password: String!) {
@@ -51,7 +52,13 @@ function TopNavBar() {
           <div className="navbar-content">
             <Navbar bg="dark" variant="dark" expand="lg">
               <Navbar.Brand as={Link} to="/">
-                The Healing Hand
+                <img
+                  alt=""
+                  src={HealingHandLogo}
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                />{" "}
               </Navbar.Brand>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">

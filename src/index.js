@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
+import { gql, InMemoryCache } from "apollo-boost";
 
 import "./index.css";
 import App from "./App";
@@ -12,7 +12,10 @@ import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql"
+  uri: "http://localhost:4000/graphql",
+  cache: new InMemoryCache({
+    addTypename: false
+  })
 });
 
 client
@@ -24,6 +27,9 @@ client
           firstName
           lastName
           email
+        }
+        getTotalUsers {
+          totalUsers
         }
       }
     `

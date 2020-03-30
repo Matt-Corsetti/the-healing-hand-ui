@@ -19,10 +19,23 @@ function App() {
   const [token, setToken] = useState("");
   const [userId, setUserId] = useState("");
   const [tokenExpiration, setTokenExpiration] = useState("");
+  const [userFirstName, setUserFirstName] = useState("");
+  const [userLastName, setUserLastName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
-  const login = (token, userId, tokenExpiration) => {
+  const login = (
+    token,
+    userId,
+    tokenExpiration,
+    userFirstName,
+    userLastName,
+    userEmail
+  ) => {
     setToken(token);
     setUserId(userId);
+    setUserFirstName(userFirstName);
+    setUserLastName(userLastName);
+    setUserEmail(userEmail);
   };
 
   const logout = () => {
@@ -67,6 +80,9 @@ function App() {
                     setToken={setToken}
                     setUserId={setUserId}
                     setTokenExpiration={setTokenExpiration}
+                    setUserFirstName={setUserFirstName}
+                    setUserLastName={setUserLastName}
+                    setUserEmail={setUserEmail}
                     {...props}
                   />
                 )}
