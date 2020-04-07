@@ -55,8 +55,8 @@ function TopNavBar() {
                 <img
                   alt=""
                   src={HealingHandLogo}
-                  width="30"
-                  height="30"
+                  width="50"
+                  height="50"
                   className="d-inline-block align-top"
                 />{" "}
               </Navbar.Brand>
@@ -65,36 +65,42 @@ function TopNavBar() {
                 <Nav className="mr-auto">
                   <NavItem eventkey={1} href="/">
                     <Nav.Link as={Link} to="/">
-                      Home
+                      <div className="nav-item-font">Home</div>
                     </Nav.Link>
                   </NavItem>
                   <NavItem eventkey={2} href="/about">
                     <Nav.Link as={Link} to="/about">
-                      About
+                      <div className="nav-item-font">About</div>
                     </Nav.Link>
                   </NavItem>
                   <NavItem eventkey={3} href="/services">
                     <Nav.Link as={Link} to="/services">
-                      Services
+                      <div className="nav-item-font">Services</div>
                     </Nav.Link>
                   </NavItem>
                   <NavItem eventkey={4} href="/products">
                     <Nav.Link as={Link} to="/products">
-                      Products
+                      <div className="nav-item-font">Products</div>
                     </Nav.Link>
                   </NavItem>
                 </Nav>
                 <Nav>
                   <NavItem eventkey={5} href="/admin">
-                    <Nav.Link as={Link} to="/admin">
-                      Admin
-                    </Nav.Link>
+                    {!context.token && <div></div>}
+                    {context.adminToken && (
+                      <Nav.Link as={Link} to="/admin">
+                        <div className="nav-item-font">Admin</div>
+                      </Nav.Link>
+                    )}
                   </NavItem>
-                  <NavItem eventkey={6} href="/appointments">
-                    <Nav.Link as={Link} to="/appointments">
-                      Appointments
-                    </Nav.Link>
-                  </NavItem>
+                  {!context.token && <div></div>}
+                  {context.token && (
+                    <NavItem eventkey={6} href="/appointments">
+                      <Nav.Link as={Link} to="/appointments">
+                        <div className="nav-item-font">Appointments</div>
+                      </Nav.Link>
+                    </NavItem>
+                  )}
                 </Nav>
                 <Form inline>
                   <div className="login-button">

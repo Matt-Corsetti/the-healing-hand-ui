@@ -15,7 +15,9 @@ function Login({
   setTokenExpiration,
   setUserFirstName,
   setUserLastName,
-  setUserEmail
+  setUserEmail,
+  setAdminFlag,
+  setAdminToken
 }) {
   // const contextType = { AuthContext };
 
@@ -48,7 +50,10 @@ function Login({
             query {
               login(email: "${data.email}", password: "${data.password}") {
                 userId
+                adminId
+                companyRole
                 token
+                adminToken
                 tokenExpiration
                 firstName
                 lastName
@@ -75,18 +80,26 @@ function Login({
               );
             } else {
               console.log("Success", response);
-              setToken(response.data.login.token);
-              setUserId(response.data.login.userId);
-              setTokenExpiration(response.data.login.tokenExpiration);
-              setUserFirstName(response.data.login.firstName);
-              setUserLastName(response.data.login.lastName);
-              setUserEmail(response.data.login.email);
-              resetForm();
-              setLoggedInFlag(true);
-
-              alert("You are now logged in");
-
-              history.push("/");
+              console.log(response.data.login.userId);
+              if (response.data.login.userId == null) {
+                setToken(response.data.login.token);
+                setAdminToken(response.data.login.adminToken);
+                setAdminFlag(true);
+                setLoggedInFlag(true);
+                alert("You are now logged in");
+                history.push("/");
+              } else {
+                setToken(response.data.login.token);
+                setUserId(response.data.login.userId);
+                setTokenExpiration(response.data.login.tokenExpiration);
+                setUserFirstName(response.data.login.firstName);
+                setUserLastName(response.data.login.lastName);
+                setUserEmail(response.data.login.email);
+                resetForm();
+                setLoggedInFlag(true);
+                alert("You are now logged in");
+                history.push("/");
+              }
             }
           })
           .catch(err => {

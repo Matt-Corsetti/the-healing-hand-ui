@@ -11,20 +11,24 @@ import AdminPage from "./components/Admin";
 import AppointmentsPage from "./components/Appointments";
 import NavAppBar from "./components/AppBar";
 import Login from "./components/Login";
+import SimpleFooter from "./components/Footer";
 import AuthContext from "./context/auth-context";
 import "./App.css";
 
 function App() {
   const [loggedInFlag, setLoggedInFlag] = useState(false);
   const [token, setToken] = useState("");
+  const [adminToken, setAdminToken] = useState("");
   const [userId, setUserId] = useState("");
   const [tokenExpiration, setTokenExpiration] = useState("");
   const [userFirstName, setUserFirstName] = useState("");
   const [userLastName, setUserLastName] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [adminFlag, setAdminFlag] = useState(false);
 
   const login = (
     token,
+    adminToken,
     userId,
     tokenExpiration,
     userFirstName,
@@ -32,6 +36,7 @@ function App() {
     userEmail
   ) => {
     setToken(token);
+    setAdminToken(adminToken);
     setUserId(userId);
     setUserFirstName(userFirstName);
     setUserLastName(userLastName);
@@ -40,8 +45,10 @@ function App() {
 
   const logout = () => {
     setToken(null);
+    setAdminToken(null);
     setUserId(null);
     setLoggedInFlag(false);
+    setAdminFlag(false);
   };
 
   return (
@@ -51,6 +58,7 @@ function App() {
           value={{
             token: token,
             userId: userId,
+            adminToken: adminToken,
             login: login,
             logout: logout
           }}
@@ -63,7 +71,8 @@ function App() {
               <Route exact path="/services" component={ServicesPage} />
               <Route exact path="/products" component={Products} />
               <Route exact path="/new-account" component={NewAccountPage} />
-              <Route exact path="/admin" component={AdminPage} />
+              {adminFlag && <Route exact path="/admin" component={AdminPage} />}
+
               {loggedInFlag && (
                 <Route
                   exact
@@ -77,6 +86,8 @@ function App() {
                 render={props => (
                   <Login
                     setLoggedInFlag={setLoggedInFlag}
+                    setAdminFlag={setAdminFlag}
+                    setAdminToken={setAdminToken}
                     setToken={setToken}
                     setUserId={setUserId}
                     setTokenExpiration={setTokenExpiration}
@@ -89,6 +100,7 @@ function App() {
               />
             </Switch>
           </div>
+          <SimpleFooter />
         </AuthContext.Provider>
       </React.Fragment>
     </Router>

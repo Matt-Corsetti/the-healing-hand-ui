@@ -130,39 +130,6 @@ function Products() {
             </Card>
           </Grid>
         </Grid>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={4}>
-            <Card className={classes.root}>
-              <CardActionArea>
-                <CardMedia
-                  style={{ height: "250px" }}
-                  component="img"
-                  alt="Product Image"
-                  height="140"
-                  image={crystals}
-                  title="Product Image"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Crystals
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    This is a product that I hope you will like a lot.
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  Share
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        </Grid>
       </div>
     </div>
   );

@@ -2,18 +2,25 @@
   font-family: "Raleway", sans-serif;
 }
 
+.nav-item-font {
+  color: #18ffff !important;
+}
+
 .login-button {
   padding-left: 5px;
   padding-right: 5px;
   float: right;
 }
 
+.nav-item {
+  font-size: 20px;
+  color: #18ffff;
+}
 .nav-item:hover {
-  color: #ffffff;
-  background-color: #ee4400;
+  background-color: #00796b;
 }
 
 .nav-item > a:active {
-  color: #ffffff;
+  color: #18ffff;
   background-color: #ee4400;
 }

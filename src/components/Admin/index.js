@@ -12,6 +12,8 @@ import IconButton from "@material-ui/core/IconButton";
 import PropTypes from "prop-types";
 import SaveIcon from "@material-ui/icons/Save";
 
+import PersonIcon from "@material-ui/icons/Person";
+
 import {
   makeStyles,
   Table,
@@ -99,7 +101,7 @@ function deleteUser(id) {
   const requestBody = {
     query: `
       mutation {
-        deleteUser(id: "${id}"){
+        deleteUser(adminId: "${id}"){
           deletedId
         }
       }`
@@ -119,6 +121,37 @@ function deleteUser(id) {
       } else {
         console.log("Success", response);
         alert("User Deleted");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
+}
+
+function deleteAdmin(adminId) {
+  const requestBody = {
+    query: `
+      mutation {
+        deleteAdmin(id: "${adminId}") {
+          deletedId
+        }
+      }`
+  };
+
+  fetch("http://localhost:4000/graphql", {
+    method: "POST",
+    body: JSON.stringify(requestBody),
+    headers: {
+      "Content-Type": "applicaiton/json"
+    }
+  })
+    .then(response => response.json())
+    .then(async response => {
+      if (typeof response.errors !== "undefined") {
+        console.log(response.errors[0].message);
+      } else {
+        console.log("Success", response);
+        alert("Admin Deleted");
       }
     })
     .catch(error => {
@@ -275,6 +308,11 @@ const QUERIES = gql`
       appointmentTime
       appointmentType
     }
+    getAdmins {
+      id
+      adminEmail
+      companyRole
+    }
     getTotalUsers {
       totalUsers
     }
@@ -320,6 +358,7 @@ function AdminPage() {
           <Tab label="Users" {...a11yProps(0)} />
           <Tab label="Appointments" {...a11yProps(1)} />
           <Tab label="Reports" {...a11yProps(2)} />
+          <Tab label="Site Admins" {...a11yProps(3)} />
         </Tabs>
 
         <TabPanel value={value} index={0}>
@@ -606,6 +645,39 @@ function AdminPage() {
                 </CardActions>
               </Card>
             </Grid>
+          </Grid>
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <Grid item className={classes.table} xs={12}>
+            <TableContainer component={Paper}>
+              <Table className={classes.table} aria-label="Site Admins">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Email</TableCell>
+                    <TableCell>Company Role</TableCell>
+                    <TableCell>Delete Admin</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {data.getAdmins.map(
+                    ({ adminId, adminEmail, companyRole }) => (
+                      <TableRow key={adminId}>
+                        <TableCell>{adminEmail}</TableCell>
+                        <TableCell>{companyRole}</TableCell>
+                        <TableCell>
+                          <IconButton
+                            aria-label="delete"
+                            onClick={deleteAdmin.bind(this, adminId)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    )
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Grid>
         </TabPanel>
       </div>
